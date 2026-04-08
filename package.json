@@ -1,0 +1,61 @@
+{
+  "name": "fieldtrack",
+  "version": "1.0.0",
+  "description": "FieldTrack — Workforce Attendance Platform",
+  "main": "index.js",
+  "build": {
+    "appId": "fieldtrack.app",
+    "productName": "FieldTrack",
+    "asar": true,
+    "compression": "maximum",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "index.js",
+      "preload.js",
+      "src/**/*",
+      "assets/**/*",
+      "*.html",
+      "*.css",
+      "!**/*.map",
+      "!**/temp/*"
+    ],
+    "win": {
+      "icon": "assets/icons/app-icon.ico",
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ]
+    },
+    "nsis": {
+      "oneClick": true,
+      "allowToChangeInstallationDirectory": false,
+      "createDesktopShortcut": true,
+      "runAfterFinish": true,
+      "deleteAppDataOnUninstall": true
+    }
+  },
+  "scripts": {
+    "start": "electron . --disable-gpu",
+    "dev": "electron . --inspect --disable-gpu",
+    "build": "electron-builder"
+  },
+  "keywords": [
+    "attendance",
+    "workforce",
+    "electron"
+  ],
+  "author": "FieldTrack",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^30.0.0"
+  },
+  "dependencies": {
+    "dotenv": "^17.4.1"
+  }
+}

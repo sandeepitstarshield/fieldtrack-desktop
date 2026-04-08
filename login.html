@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Content-Security-Policy" content="
+        default-src 'none';
+        script-src 'unsafe-inline';
+        style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+        font-src https://fonts.gstatic.com;
+        img-src 'self' data:;
+        connect-src http://localhost:3000 http://localhost:3001 https:;
+    " />
+    <title>FieldTrack — Sign In</title>
+    <link rel="stylesheet" href="styles.css" />
+
+</head>
+
+<body class="fade-in">
+
+    <!-- Custom Titlebar -->
+    <div class="titlebar">
+        <div class="titlebar-brand">
+            <div class="dot"></div>
+            FieldTrack
+        </div>
+        <div class="titlebar-controls">
+            <button class="titlebar-btn" id="tb-min" title="Minimize">&#x2013;</button>
+            <button class="titlebar-btn close" id="tb-close" title="Close">&#x2715;</button>
+        </div>
+    </div>
+
+    <div class="login-page-content">
+    <div class="login-card">
+
+        <!-- Theme chip -->
+        <div style="display: none;" class="theme-chip" id="theme-chip">
+            <svg id="theme-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <!-- filled by JS -->
+            </svg>
+            <span id="theme-label"></span>
+        </div>
+
+        <!-- Logo -->
+        <div class="login-logo">
+            <div class="login-logo-icon">
+                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                </svg>
+            </div>
+            <div>
+                <div class="login-logo-name">FieldTrack</div>
+                <div class="login-logo-sub">Workforce Platform</div>
+            </div>
+        </div>
+
+        <div class="badge-pill"><span></span><span>Admin Portal</span></div>
+        <div class="login-title">Welcome back</div>
+        <div class="login-sub">Sign in to manage your workforce</div>
+
+        <div id="login-error" class="error-banner hidden">
+            <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10" />
+                <line x1="12" y1="8" x2="12" y2="12" />
+                <line x1="12" y1="16" x2="12.01" y2="16" />
+            </svg>
+            <span id="login-error-text"></span>
+        </div>
+
+        <!-- Email -->
+        <div class="field">
+            <label>Email address</label>
+            <div class="input-wrap">
+                <svg class="icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                </svg>
+                <input type="email" id="login-email" placeholder="you@company.com" autocomplete="email" />
+            </div>
+            <div id="email-err" class="field-err hidden">
+                <svg width="11" height="11" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10" />
+                    <line x1="12" y1="8" x2="12" y2="12" />
+                    <line x1="12" y1="16" x2="12.01" y2="16" />
+                </svg>
+                <span></span>
+            </div>
+        </div>
+
+        <!-- Password -->
+        <div class="field">
+            <div class="field-row">
+                <label style="margin-bottom:0">Password</label>
+                <a href="#" id="forgot-link" class="forgot-link">Forgot password?</a>
+            </div>
+            <div class="input-wrap" style="margin-top:6px">
+                <svg class="icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                    <path d="M7 11V7a5 5 0 0110 0v4" />
+                </svg>
+                <input type="password" id="login-password" placeholder="Enter your password"
+                    autocomplete="current-password" style="padding-right:40px" />
+                <button class="eye-btn" id="eye-btn" type="button">
+                    <svg id="eye-icon" width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                        stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                    </svg>
+                </button>
+            </div>
+            <div id="pass-err" class="field-err hidden">
+                <svg width="11" height="11" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10" />
+                    <line x1="12" y1="8" x2="12" y2="12" />
+                    <line x1="12" y1="16" x2="12.01" y2="16" />
+                </svg>
+                <span></span>
+            </div>
+        </div>
+
+        <button class="btn-primary" id="login-btn">
+            <span>Sign in to FieldTrack</span>
+            <svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+            </svg>
+        </button>
+
+        <div class="signup-row">Don't have an account? <a href="#" id="signup-link">Sign up</a></div>
+
+        <div class="divider">
+            <hr /><span>Secured by FieldTrack</span>
+            <hr />
+        </div>
+
+        <div class="trust-row">
+            <div class="trust-item">
+                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                </svg>
+                AES-256
+            </div>
+            <div class="trust-item">
+                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                </svg>
+                SOC 2
+            </div>
+            <div class="trust-item">
+                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                </svg>
+                JWT RS256
+            </div>
+        </div>
+    </div>
+
+    </div><!-- /.login-page-content -->
+
+    <div id="toast"></div>
+
+    <script>
+        // ── Config from Electron preload ──────────────────────────────────────
+        const API_BASE = (window.fieldtrack?.apiBaseUrl) || 'http://localhost:3000';
+        const WEB_APP  = (window.fieldtrack?.webAppUrl)  || 'http://localhost:3001';
+        const API = `${API_BASE}/api/v1`;
+
+        // Set dynamic links
+        const signupLink  = document.getElementById('signup-link');
+        const forgotLink  = document.getElementById('forgot-link');
+        if (signupLink) signupLink.href  = `${WEB_APP}/signup`;
+        if (forgotLink) forgotLink.href  = `${WEB_APP}/forgot-password`;
+
+        const $ = id => document.getElementById(id);
+
+        // ── Titlebar controls ────────────────────────────────────────────────
+        $('tb-min').addEventListener('click', () => window.fieldtrack?.minimizeWindow());
+        $('tb-close').addEventListener('click', () => window.fieldtrack?.closeWindow());
+
+        // ── Theme chip ───────────────────────────────────────────────────────
+        const MOON_SVG = `<path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>`;
+        const SUN_SVG = `<circle cx="12" cy="12" r="5"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>`;
+
+        function updateThemeChip() {
+            const dark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            $('theme-icon').innerHTML = dark ? MOON_SVG : SUN_SVG;
+            $('theme-label').textContent = dark ? 'Dark' : 'Light';
+        }
+
+        updateThemeChip();
+
+        // React immediately when system theme toggles
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', updateThemeChip);
+
+        // Also react to Electron's native theme IPC signal (from main process)
+        if (window.electronAPI?.onThemeChanged) {
+            window.electronAPI.onThemeChanged(updateThemeChip);
+        }
+
+        // ── Persistent session — skip login if token + user already stored ──
+        (function checkSession() {
+            const token = localStorage.getItem('fieldtrack_token');
+            const user = localStorage.getItem('fieldtrack_user');
+            if (token && user) {
+                // Optionally validate token expiry here before redirecting
+                window.location.href = 'clockin.html';
+            }
+        })();
+
+        // ── Eye toggle ───────────────────────────────────────────────────────
+        $('eye-btn').addEventListener('click', () => {
+            const inp = $('login-password');
+            const show = inp.type === 'password';
+            inp.type = show ? 'text' : 'password';
+            $('eye-icon').innerHTML = show
+                ? `<path stroke-linecap="round" stroke-linejoin="round" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21"/>`
+                : `<path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>`;
+        });
+
+        // ── Login ────────────────────────────────────────────────────────────
+        $('login-btn').addEventListener('click', doLogin);
+        $('login-password').addEventListener('keydown', e => e.key === 'Enter' && doLogin());
+
+        function findToken(obj, depth = 0) {
+            if (!obj || typeof obj !== 'object' || depth > 4) return null;
+            const keys = ['accessToken', 'access_token', 'token', 'jwt', 'authToken', 'id_token', 'bearerToken'];
+            for (const k of keys) if (obj[k] && typeof obj[k] === 'string' && obj[k].length > 10) return obj[k];
+            for (const v of Object.values(obj)) { const f = findToken(v, depth + 1); if (f) return f; }
+            return null;
+        }
+
+        function findUser(obj, depth = 0) {
+            if (!obj || typeof obj !== 'object' || depth > 4) return null;
+            if ((obj.id || obj._id) && (obj.email || obj.role || obj.fullName || obj.name)) return obj;
+            const keys = ['user', 'account', 'profile', 'employee'];
+            for (const k of keys) if (obj[k] && typeof obj[k] === 'object') return obj[k];
+            for (const v of Object.values(obj)) { const f = findUser(v, depth + 1); if (f) return f; }
+            return null;
+        }
+
+        async function doLogin() {
+            const email = $('login-email').value.trim();
+            const pass = $('login-password').value;
+            let ok = true;
+
+            $('email-err').classList.add('hidden');
+            $('pass-err').classList.add('hidden');
+            $('login-error').classList.add('hidden');
+
+            if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                $('email-err').classList.remove('hidden');
+                $('email-err').querySelector('span').textContent = 'Enter a valid email address';
+                $('login-email').classList.add('err'); ok = false;
+            } else { $('login-email').classList.remove('err'); }
+
+            if (!pass) {
+                $('pass-err').classList.remove('hidden');
+                $('pass-err').querySelector('span').textContent = 'Password is required';
+                $('login-password').classList.add('err'); ok = false;
+            } else { $('login-password').classList.remove('err'); }
+
+            if (!ok) return;
+
+            const btn = $('login-btn');
+            btn.disabled = true;
+            btn.innerHTML = `<div class="spin" style="width:14px;height:14px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff"></div><span>Signing in…</span>`;
+
+            try {
+                const r = await fetch(`${API}/auth/login`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password: pass }),
+                });
+                const data = await r.json().catch(() => ({}));
+                if (!r.ok) throw new Error(data.message || data.error || `HTTP ${r.status}`);
+
+                const token = findToken(data);
+                if (!token) throw new Error('No auth token in response — check DevTools console.');
+
+                const user = findUser(data) || { email };
+
+                // Persist session — survives app restarts
+                localStorage.setItem('fieldtrack_token', token);
+                localStorage.setItem('fieldtrack_user', JSON.stringify(user));
+
+                window.location.href = 'clockin.html';
+            } catch (e) {
+                $('login-error-text').textContent = e.message;
+                $('login-error').classList.remove('hidden');
+                btn.disabled = false;
+                btn.innerHTML = `<span>Sign in to FieldTrack</span><svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>`;
+            }
+        }
+    </script>
+</body>
+
+</html>
