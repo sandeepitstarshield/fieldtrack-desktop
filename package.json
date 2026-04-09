@@ -53,7 +53,8 @@
   "author": "FieldTrack",
   "license": "MIT",
   "devDependencies": {
-    "electron": "^30.0.0"
+    "electron": "^30.0.0",
+    "electron-builder": "^26.8.1"
   },
   "dependencies": {
     "dotenv": "^17.4.1"
